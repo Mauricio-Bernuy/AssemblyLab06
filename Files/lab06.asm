@@ -2,16 +2,9 @@
 # Calculate sum from A to B.
 #
 # Authors: 
-#	X Y, Z Q 
+#	Claudia Noche, Mauricio Bernuy 
 #
 #
-
-.data
-
-A: .word 12
-B: .word 21
-zero: .word 0
-
 
 .text
 main:
@@ -20,13 +13,14 @@ main:
 	#
 
 	# Put your sum S into register $t2
-	lw $t0, A
-	lw $t1, B
-	lw $t2, zero		#result
-	lw $t3, zero		#iterator
+	addi $t0, $t0, 12 	# A
+	addi $t1, $t1, 21	# B
+	
+	# $t2 - result
+	# $t3 - iterator
 	
 	sub $t4, $t1, $t0	#
-	addi $t4, $t4, 1	#size
+	addi $t4, $t4, 1	# size
 		
 	begin_loop:
 	beq $t4, $t3, end
