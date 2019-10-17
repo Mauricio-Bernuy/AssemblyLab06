@@ -124,23 +124,21 @@ end_loop:
 	#of the function call)and store in the corresponding register
 	
 	addi $s5, $s0, 18
-
-	
-	# ...
 	
 	# Prepare the second argument of the function call: the size of the array
 	
-	#.....
+	#second arg is $s2 - size of the array
 	
 	# Call to funtion
-	
+	addu $a0, $a0, $s5
+	addu $a1, $a1, $s2
 	jal recursive_sum
-	# ....
+
 	  
 	
 	#Store the returned value in $t2
 	
-	# .....
+	lw $t2, 0($v0)
 	
 
 end:	
@@ -173,9 +171,9 @@ else:
 	add  $a1, $t0, $0		#update the second argument
         jal   recursive_sum 
         lw    $t0, 0($sp)       # Restore size - 1 from stack
-        sll  $t1, $t0, 2        # Multiply size by 4
-        add   $t1, $t1, $a0     # Compute & arr[ size - 1 ]
-        lw    $t2, 0($t1)       # t2 = arr[ size - 1 ]
+        sll  $t8, $t0, 2        # Multiply size by 4
+        add   $t8, $t8, $a0     # Compute & arr[ size - 1 ]
+        lw    $t9, 0($t8)       # t2 = arr[ size - 1 ]
         add   $v0, $v0, $t2     # retval = $v0 + arr[size - 1]
         lw    $ra, 4($sp)       # restore return address from stack         
         addi $sp, $sp, 8        # Adjust sp
