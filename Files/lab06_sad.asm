@@ -69,7 +69,9 @@ main:
 	     
 	# TODO4: Loop over the elements of left_image and right_image
 	
-	addi $s1, $0, 0 # $s1 = i = 0
+	addi $s1, $0, 0 # $s1 = i = 0 (start of left_image)
+	addi $s3, $0, 9 # $s3 = j = 9 (start of right_image)
+	addi $s4, $0, 18 # $s4 = k = 18 (start of sad_array)
 	addi $s2, $0, 9	# $s2 = image_size = 9
 
 loop:
@@ -78,18 +80,22 @@ loop:
 	# of the loop. If so, jump to end_loop:
 	
 	
-	bgt $s1, $s2, end_loop
+	beq  $s1, $s2, end_loop
 	
 	
 	# Load left_image{i} and put the value in the corresponding register
 	# before doing the function call
-	# ....
 	
-	lw $t1, $s1, 
+	sll $t3, $s1, 2 # $t3 bit offset for left
+	addu $t3, $t3, $s0
+	lw $t5, 0($t3)
+	
 	
 	# Load right_image{i} and put the value in the corresponding register
 	
-	# ....
+	sll  $t4, $s3, 2 # starts at 9, bit offset for right
+	addu $t4, $t4, $s0
+	lw $t6, 0($t4)
 	
 	# Call abs_diff
 	
@@ -97,14 +103,16 @@ loop:
 	
 	#Store the returned value in sad_array[i]
 	
-	# ....
-	
-	
-	# Increment variable i and repeat loop:
-	
-	# ...
-	
+	sll $t5, $s4, 2 # $t3 bit offset for left
+	addu $t5, $t5, $s0
+	sw $(abs_diff output address), 0($t5) 
 
+		
+	# Increment variable i and repeat loop:
+	addi $s1, $s1, 1
+	addi $s3, $s3, 1
+	
+	j loop
 	
 end_loop:
 
