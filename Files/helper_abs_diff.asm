@@ -87,7 +87,7 @@ end:
 
 abs_diff:
 	sub $t1, $a0, $a1
-	sra $t2,$t1,31   
+	sra $t2,$t1, 31   
 	xor $t1,$t1,$t2   
 	sub $v0,$t1,$t2    
 
